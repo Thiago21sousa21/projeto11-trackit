@@ -8,7 +8,7 @@ import Contexto from "../../Contexto/Contexto";
 export default function Login (){
     const navigate = useNavigate();
 
-    const {setToken, token} = useContext(Contexto);
+    const {setToken, token, setPhoto} = useContext(Contexto);
     const [credencial, setCredencial] = useState({
         email: "",
         password: ""
@@ -19,8 +19,9 @@ export default function Login (){
         console.log(credencial);
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', credencial)
             .then((ans)=>{
-                console.log(ans.data.token);
+                console.log(ans.data);
                 setToken(ans.data.token);
+                setPhoto(ans.data.image)
                 navigate('/hoje');
             })
             .catch((err)=>{
@@ -37,9 +38,9 @@ export default function Login (){
             <form onSubmit={fazerLogin}>
                 <input onChange={(e)=>setCredencial({...credencial, email: e.target.value})} value={credencial.email} placeholder="email" type="email" name="" id="" />
                 <input onChange={(e)=>setCredencial({...credencial, password: e.target.value})} value={credencial.password} placeholder="senha" type="password" name="" id="" />
-                <button>entrar</button>
+                <button>Entrar</button>
             </form>
-            <Link to='/cadastro'>
+            <Link to='/cadastro'className="none" >
                 <p>Não tem uma conta? Cadastre-se!</p>
             </Link>
 
@@ -67,12 +68,32 @@ const CsLogin = styled.div`
         display: flex;
         flex-direction: column;
         gap: 6px; 
+        width: 80%;
+        input{
+            background: #FFFFFF;
+            border: 1px solid #D5D5D5;
+            border-radius: 5px;
+            height: 45px;
+            width: 100%
+        }
+        button{
+            background: #52B6FF;
+            border: none;
+            border-radius: 5px;
+            height: 45px;
+            font-family: 'Lexend Deca';
+            font-weight: 400;
+            font-size: 21px;
+            line-height: 26px;
+            color: #FFFFFF;            
+        }
     }
-    p{
+    .none{
         margin-top: 25px;
         color: #52B6FF;
         font-family: 'Lexend Deca';
         font-weight: 400;
         font-size: 14px;
     }
+   
 `;

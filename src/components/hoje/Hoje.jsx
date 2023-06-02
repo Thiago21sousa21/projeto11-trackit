@@ -46,20 +46,20 @@ const CsHoje = styled.div`
     height: 100vh;
     background-color: #f2f2f2;
 
-   // border: 1px solid;
+    //border: 1px solid;
 
     padding: 70px 0px;
     .molde{
         width: 90%;
         height: 100%;
         //border: 1px solid red;
-        padding: 80px  0px;
+        padding: 100px  0px 40px;
         overflow-y: scroll;
         margin: 0 auto;
 
     }
     .tituloHoje{
-        height: 80px;
+        height: 100px;
         //border: 1px solid green;
         background-color: #f2f2f2;
         width: 90%;
@@ -71,7 +71,7 @@ const CsHoje = styled.div`
         transform: translate(-50%);
         display:flex;
         flex-direction: column;
-        justify-content: end;
+        justify-content: center;
         
 
         h1{
@@ -80,6 +80,13 @@ const CsHoje = styled.div`
             font-size: 23px;
             color: #126BA5;
 
+        }
+        h2{
+            font-family: 'Lexend Deca';
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 22px;
+            color: #BABABA;  
         }
 
     }

@@ -58,6 +58,7 @@ const CsHabito = styled.div`
     padding: 15px;
     margin: 10px 0px;
     background-color: #ffffff;
+    border-radius: 5px;
 
     .tituloHabito{
         display: flex;

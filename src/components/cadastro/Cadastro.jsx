@@ -40,7 +40,7 @@ export default function Cadastro() {
                 <input placeholder="senha"  onChange={(e) => setCadastro({ ...cadastro, password: e.target.value })} value={cadastro.password} type="password" name="" id="" />
                 <input placeholder="nome" onChange={(e) => setCadastro({ ...cadastro, name: e.target.value })} value={cadastro.name} type="text" name="" id="" />
                 <input placeholder="imagem" onChange={(e) => setCadastro({ ...cadastro, image: e.target.value })} value={cadastro.image} type="url" name="" id="" />
-                <button>entrar</button>
+                <button>Cadastrar</button>
             </form>
             <Link to='/'>
                 <p>Votar para fazer login</p>
@@ -70,7 +70,26 @@ const CsCadastro = styled.div`
     form{
         display: flex;
         flex-direction: column;
-        gap: 6px; 
+        gap: 6px;
+        width: 80%;
+        input{
+            background: #FFFFFF;
+            border: 1px solid #D5D5D5;
+            border-radius: 5px;
+            height: 45px;
+            width: 100%
+        }
+        button{
+            background: #52B6FF;
+            border: none;
+            border-radius: 5px;
+            height: 45px;
+            font-family: 'Lexend Deca';
+            font-weight: 400;
+            font-size: 21px;
+            line-height: 26px;
+            color: #FFFFFF;            
+        }        
     }
     p{
         margin-top: 25px;

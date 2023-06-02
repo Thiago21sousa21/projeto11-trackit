@@ -1,21 +1,30 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Contexto from "../../Contexto/Contexto";
+import { useContext } from "react";
 
 export default function HeaderFooter (){
+    const {photo} = useContext(Contexto);
     return(
     <>
         <Link to='/'>
-            <Header></Header>
+            <Header>
+                <h1>TrackIt</h1>
+                <img src={photo} alt="" />
+            </Header>
         </Link>
         <Footer>
             
-            <Link to='/habitos'>
+            <Link to='/habitos' className="none ">
                 <p>Hábitos</p>
             </Link>
-            <Link to='/hoje'>
+            <Link to='/hoje' className="none ">
                 <Ball></Ball>
             </Link>
-            <p>Histórico</p>
+            <Link to='/hoje' className="none ">
+                <p>Histórico</p>
+            </Link>
+
         </Footer>
     </>);
 }
@@ -30,6 +39,22 @@ const Header = styled.div`
 
     background: #126BA5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 5%;
+
+    img{
+        border-radius : 50%;
+        width: 51px;
+        height: 51px;
+    }
+
+    font-family: 'Playball';
+    font-weight: 400;
+    font-size: 39px;
+    color: #FFFFFF;
 `;
 const Footer = styled.div`
     position: fixed;
@@ -39,14 +64,22 @@ const Footer = styled.div`
     bottom: 0px;
     z-index: 10;
 
-    padding: 0 35px;
+    padding: 0 9%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
 
     background: #FFFFFF;
-    border: 1px solid black;
+    //border: 1px solid black;
+    .none{
+        text-decoration: none;
+        font-family: 'Lexend Deca';
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+        color: #52B6FF;
+    }
 `;
 const Ball = styled.div`
     position: absolute;

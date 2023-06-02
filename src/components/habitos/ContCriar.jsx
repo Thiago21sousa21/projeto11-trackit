@@ -63,8 +63,8 @@ export default function ContCriar(props) {
 
                 </div> 
                 <div className="addCancel">
-                    <button type="button" onClick={() => setDisplay('none')}>cancelar</button>
-                    <button type="submit" >salvar</button>
+                    <button className="cancelar" type="button" onClick={() => setDisplay('none')}>Cancelar</button>
+                    <button className="salvar" type="submit" >Salvar</button>
 
                 </div>
             </form>
@@ -77,6 +77,7 @@ const CsContCriar = styled.div`
     height: 180px;
     //border: 1px solid;
     background-color: #ffffff;
+    border-radius: 5px;
 
     display: ${props => props.display};
     flex-direction: column;
@@ -84,6 +85,9 @@ const CsContCriar = styled.div`
 
     form{
         width:100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     input{
@@ -110,6 +114,25 @@ const CsContCriar = styled.div`
         button{
             width: 84px;
             height: 35px;
+        }
+        .cancelar{
+            font-family: 'Lexend Deca';
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 20px;
+            color: #52B6FF;
+            border: none;
+            background-color: #ffffff;
+        }
+        .salvar{
+            background: #52B6FF;
+            border-radius: 5px;
+            font-family: 'Lexend Deca';
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 20px;
+            color: #FFFFFF;
+            border: none;
         }
     }
 

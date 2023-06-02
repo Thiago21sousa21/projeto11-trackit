@@ -74,8 +74,12 @@ const CsTarefaHoje = styled.div`
     height: 95px;
     width: 100%;
     background-color: #FFFFFF;
+    border-radius: 5px;
 
     //border: 1px solid;
+    font-family: 'Lexend Deca';
+    font-weight: 400;
+    color: #666666;
 
     margin-bottom: 10px;
 
@@ -98,10 +102,12 @@ const CsTarefaHoje = styled.div`
         font-size: 28px;
     }
     .descricao{
-       // border: 1px solid; 
+        //border: 1px solid; 
+       width: 70%;
     }
     h1{
         font-size: 20px;
+        margin-bottom: 7px;
     }
 
 `;

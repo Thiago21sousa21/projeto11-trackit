@@ -8,7 +8,6 @@ import Contexto from "../../Contexto/Contexto";
 export default function Habitos() {
     const {token} = useContext(Contexto);
     const [arrayHabitos, setArrayHabitos] = useState(undefined);
-    const [textReload, setTextReload] = useState('Meus hábitos');
 
     const config ={
         headers:{
@@ -33,13 +32,12 @@ export default function Habitos() {
         <CsCinza>
             <CsHabitos display={display}>
                 <div className="containerTituloMeusHabitos">
-                    <p>{textReload}</p>
+                    <p>Meus hábitos</p>
                     <button onClick={() => setDisplay('flex')}>+</button>
                 </div>
 
                 <ContCriar 
                     display={display} setDisplay={setDisplay}
-                    setTextReload={setTextReload}
                     setArrayHabitos={setArrayHabitos} arrayHabitos={arrayHabitos}
                 />
 
@@ -61,7 +59,7 @@ const CsCinza = styled.div`
     width: 100%;
     height: 100vh;
     background-color: #f2f2f2;
-    padding: 130px 0 70px;
+    padding: 145px 0 70px;
 `;
 
 const CsHabitos = styled.div`
@@ -71,6 +69,7 @@ const CsHabitos = styled.div`
     background-color: #f2f2f2;
 
     margin: 0 auto 0;
+    padding-bottom: 25px;
 
 
     display: flex;
@@ -85,23 +84,32 @@ const CsHabitos = styled.div`
         transform: translate(-50%);
         //right: auto;
         width: 90%;
-        height: 60px;
+        height: 75px;
         //border: 1px solid  red;
         background-color: #f2f2f2;
 
 
         display: flex;
         justify-content: space-between;
-        align-items: end;
+        align-items: center;
 
         font-family: 'Lexend Deca';
         font-weight: 400;
         font-size: 23px;
+        color: #126BA5;
 
         button{
             width: 40px;
             height: 35px;
+            background: #52B6FF;
+            border-radius: 5px;
+            border: none;
 
+            font-family: 'Lexend Deca';
+            font-weight: 400;
+            font-size: 27px;
+            line-height: 34px;
+            color: #FFFFFF;
         }
     }
 
