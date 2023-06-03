@@ -43,8 +43,8 @@ export default function Login() {
             </Link>
 
             <form onSubmit={fazerLogin}>
-                <input onChange={(e) => setCredencial({ ...credencial, email: e.target.value })} value={credencial.email} placeholder="email" type="email" name="" id="" />
-                <input onChange={(e) => setCredencial({ ...credencial, password: e.target.value })} value={credencial.password} placeholder="senha" type="password" name="" id="" />
+                <input onChange={(e) => setCredencial({ ...credencial, email: e.target.value })} value={credencial.email} placeholder="email" type="email" name="email" id="email" />
+                <input onChange={(e) => setCredencial({ ...credencial, password: e.target.value })} value={credencial.password} placeholder="senha" type="password" name="name" id="name" />
                 <button disabled={disabled}>
                     {
                         !disabled ?

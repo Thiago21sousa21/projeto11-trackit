@@ -7,11 +7,9 @@ import Contexto from "./../../Contexto/Contexto";
 //#E7E7E7  8FC549
 export default function TarefaHoje(props) {
     const { e, idx, setArrTarefasHoje, setDesligado, desligado } = props;
+    const { setQuantidadeTotal, setQuantidadeSelect }= props;
     const { name, currentSequence, highestSequence, id, done } = e;
-    const {token} = useContext(Contexto);
-    //console.log(token);
-    //console.log(done);
-    //const [ feito, setFeito ] = useState(done);
+    const {token, setPorcentagem} = useContext(Contexto);
 
     const config = {
         headers:{
@@ -30,10 +28,18 @@ export default function TarefaHoje(props) {
                     .then((ans)=>{
                         setDesligado(false);
                         setArrTarefasHoje(ans.data);
-    
+                        setQuantidadeTotal(ans.data.length);
+                        //console.log(quantidadeTotal, 'total');
+                        const newSelect = ans.data.filter( e => e.done);
+                        setQuantidadeSelect(newSelect.length);
+                        //console.log(quantidadeSelect, 'select');
+                        ans.data.length !== 0 && setPorcentagem(newSelect.length/ans.data.length);
+
                     })
                     .catch((err)=>{
                         console.log(  'deu ruim');
+                        console.log(err);
+
                         //setDesligado(false);
                     });
 
@@ -53,9 +59,19 @@ export default function TarefaHoje(props) {
                     .then((ans)=>{
                         setDesligado(false);
                         setArrTarefasHoje(ans.data);
+                        setQuantidadeTotal(ans.data.length);
+                        //console.log(quantidadeTotal, 'total');
+                        const newSelect = ans.data.filter( e => e.done);
+                        setQuantidadeSelect(newSelect.length);
+                        //console.log(quantidadeSelect, 'select'); 
+                        ans.data.length !== 0 && setPorcentagem(newSelect.length/ans.data.length);
+
+       
+
                     })
                     .catch((err)=>{
                         console.log(  'deu ruim');
+                        alert(err.response.data.message);
                         //setDesligado(false);
                     });
 

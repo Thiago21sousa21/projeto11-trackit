@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Contexto from "../../Contexto/Contexto";
 import { useContext } from "react";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import 'react-circular-progressbar/dist/styles.css';
 
 export default function HeaderFooter (){
-    const {photo} = useContext(Contexto);
+    const {photo, porcentagem} = useContext(Contexto);
+    //console.log(porcentagem);
     return(
     <>
         <Link to='/'>
@@ -19,7 +22,20 @@ export default function HeaderFooter (){
                 <p>Hábitos</p>
             </Link>
             <Link to='/hoje' className="none ">
-                <Ball></Ball>
+                <Ball>
+                    <CircularProgressbar 
+                        value={porcentagem}
+                        maxValue={1}
+                        text="hoje"
+                        //#52B6FF
+                        styles={buildStyles({
+                            textColor: '#ffffff',
+                            pathColor: '#ffffff',
+                            trailColor: '#52B6FF',
+                            textSize: '18px'
+                        })}
+                    />
+                </Ball>
             </Link>
             <Link to='/historico' className="none ">
                 <p>Histórico</p>
@@ -88,9 +104,11 @@ const Ball = styled.div`
     left: 50%;
     bottom: 10px;
     z-index: 10;
-
     transform: translate(-50%,0);
 
     background: #52B6FF;
     border-radius: 50%;
+
+    padding: 6px;
+
 `;

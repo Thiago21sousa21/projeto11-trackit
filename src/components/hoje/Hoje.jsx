@@ -9,16 +9,17 @@ export default function Hoje() {
 
     const dataAtual = new Date();
     const dia = String(dataAtual.getDate()).padStart(2, '0');
-    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');  
+    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
     const diasDaSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-    const diaDaSemana = diasDaSemana[dataAtual.getDay()];  
+    const diaDaSemana = diasDaSemana[dataAtual.getDay()];
     const dataFormatada = `${dia}/${mes}`;
 
-
-
     const [arrTarefasHoje, setArrTarefasHoje] = useState(undefined);
-    const { token } = useContext(Contexto);
+    const { token, setPorcentagem } = useContext(Contexto);
     const [desligado, setDesligado] = useState(true);
+
+    const [quantidadeTotal, setQuantidadeTotal] = useState(0);
+    const [quantidadeSelect, setQuantidadeSelect] = useState(0);
 
     const config = {
         headers: {
@@ -30,6 +31,15 @@ export default function Hoje() {
             .then((ans) => {
                 setDesligado(false);
                 setArrTarefasHoje(ans.data);
+                setQuantidadeTotal(ans.data.length);
+                //console.log(quantidadeTotal, 'total')
+                const newSelect = ans.data.filter(e => e.done);
+                setQuantidadeSelect(newSelect.length);
+                //console.log(quantidadeSelect, 'select');
+                ans.data.length !== 0 && setPorcentagem(newSelect.length/ans.data.length);
+                //ans.data.length !== 0 && console.log(newSelect.length/ans.data.length);
+
+
             })
             .catch((err) => {
                 console.log('deu ruim');
@@ -42,8 +52,17 @@ export default function Hoje() {
             <div className="molde">
                 <div className="tituloHoje">
                     <h1>{diaDaSemana}, {dataFormatada}</h1>
-                    <h2>Nenhum hábito concluído ainda</h2>
-                    <>{desligado}</>
+                    {
+                        quantidadeTotal === 0 ? (
+                            <h2>Você não tem atividades para hoje!</h2>
+
+                        ) : quantidadeSelect === 0 ? (
+                            <h2>Nenhum hábito concluído ainda</h2>
+
+                        ) : (
+                            <h2 className='verde'>{((quantidadeSelect / quantidadeTotal) * 100).toFixed(0)}% dos hábitos concluídos</h2>
+                        )
+                    }
                 </div>
 
                 {arrTarefasHoje === undefined ? (
@@ -51,6 +70,8 @@ export default function Hoje() {
                 ) : (
                     arrTarefasHoje.map((e, idx) => (
                         <TarefaHoje
+                            setQuantidadeSelect={setQuantidadeSelect}
+                            setQuantidadeTotal={setQuantidadeTotal}
                             setDesligado={setDesligado} desligado={desligado}
                             setArrTarefasHoje={setArrTarefasHoje}
                             key={e.id} e={e} idx={idx}
@@ -109,6 +130,10 @@ const CsHoje = styled.div`
             font-size: 18px;
             line-height: 22px;
             color: #BABABA;  
+        }
+
+        .verde{
+            color: #8FC549;
         }
 
     }

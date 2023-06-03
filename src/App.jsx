@@ -13,6 +13,7 @@ export default function App() {
   const [token, setToken]=useState('teste');
   const [diasHabito, setDiasHabito] = useState([]);
   const [photo, setPhoto] = useState('');
+  const [porcentagem, setPorcentagem] = useState(undefined);
 
   //axios.defaults.headers.common['Authorization'] = token;
   //console.log('este é o TOKEN!!!', token);
@@ -21,7 +22,7 @@ export default function App() {
 
   return (
     <>
-      <Contexto.Provider value={{token, setToken, diasHabito, setDiasHabito, photo, setPhoto}}>
+      <Contexto.Provider value={{token, setToken, diasHabito, setDiasHabito, photo, setPhoto, porcentagem, setPorcentagem}}>
         <BrowserRouter>
 
           <HeaderFooter />
