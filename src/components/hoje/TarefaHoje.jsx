@@ -6,7 +6,7 @@ import Contexto from "./../../Contexto/Contexto";
 
 //#E7E7E7  8FC549
 export default function TarefaHoje(props) {
-    const { e, idx, setArrTarefasHoje } = props;
+    const { e, idx, setArrTarefasHoje, setDesligado, desligado } = props;
     const { name, currentSequence, highestSequence, id, done } = e;
     const {token} = useContext(Contexto);
     //console.log(token);
@@ -21,36 +21,50 @@ export default function TarefaHoje(props) {
     const body = {};
 
     function toggleTarefa(){
+        setDesligado(true);
         if(done){
             axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`,body, config)
                 .then((ans)=>{
-                    alert( 'desmarcou');
+                    //alert( 'desmarcou');
+                    axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
+                    .then((ans)=>{
+                        setDesligado(false);
+                        setArrTarefasHoje(ans.data);
+    
+                    })
+                    .catch((err)=>{
+                        console.log(  'deu ruim');
+                        //setDesligado(false);
+                    });
+
                 })
                 .catch((err)=>{
                     console.log(err);
                     alert('deu zebra')});
 
-            axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
-                .then((ans)=>{
-                    setArrTarefasHoje(ans.data);
-                })
-                .catch((err)=>console.log(  'deu ruim'));
+
 
             
         } else{
             axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,body, config)
                 .then((ans)=>{
-                    alert( 'marcou');
+                    //alert( 'marcou');
+                    axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
+                    .then((ans)=>{
+                        setDesligado(false);
+                        setArrTarefasHoje(ans.data);
+                    })
+                    .catch((err)=>{
+                        console.log(  'deu ruim');
+                        //setDesligado(false);
+                    });
+
                 })
                 .catch((err)=>{
                     console.log(err);
                     alert('deu zebra')});
 
-            axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
-                .then((ans)=>{
-                    setArrTarefasHoje(ans.data);
-                })
-                .catch((err)=>console.log(  'deu ruim'));
+
     
 
         }
@@ -63,7 +77,7 @@ export default function TarefaHoje(props) {
                 <h2>Sequência atual: {currentSequence} dias</h2>
                 <h2>Seu recorde: {highestSequence} dias</h2>
             </div>
-            <div onClick={toggleTarefa} className="moldeIcon">
+            <div onClick={desligado ? null : toggleTarefa } className="moldeIcon">
                 <ion-icon name="checkmark-sharp"></ion-icon>
             </div>
             {/* <img src={check} alt="" /> */}

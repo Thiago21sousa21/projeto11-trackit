@@ -4,36 +4,58 @@ import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Contexto from './../../Contexto/Contexto';
 
-export default function Hoje (){
 
-    const [arrTarefasHoje, setArrTarefasHoje]= useState(undefined);
-    const {token} = useContext(Contexto);
+export default function Hoje() {
+
+    const dataAtual = new Date();
+    const dia = String(dataAtual.getDate()).padStart(2, '0');
+    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');  
+    const diasDaSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    const diaDaSemana = diasDaSemana[dataAtual.getDay()];  
+    const dataFormatada = `${dia}/${mes}`;
+
+
+
+    const [arrTarefasHoje, setArrTarefasHoje] = useState(undefined);
+    const { token } = useContext(Contexto);
+    const [desligado, setDesligado] = useState(true);
 
     const config = {
-        headers:{
+        headers: {
             Authorization: `Bearer ${token}`
         }
     }
-    useEffect(()=>{
+    useEffect(() => {
         axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
-            .then((ans)=>{
+            .then((ans) => {
+                setDesligado(false);
                 setArrTarefasHoje(ans.data);
             })
-            .catch((err)=>console.log(  'deu ruim'));
-    },[]);
+            .catch((err) => {
+                console.log('deu ruim');
+                //setDesligado(false);
+            });
+    }, []);
 
-    return(
+    return (
         <CsHoje>
             <div className="molde">
                 <div className="tituloHoje">
-                    <h1>Segunda, 17/05</h1>
+                    <h1>{diaDaSemana}, {dataFormatada}</h1>
                     <h2>Nenhum hábito concluído ainda</h2>
+                    <>{desligado}</>
                 </div>
 
-                { arrTarefasHoje === undefined ? (
+                {arrTarefasHoje === undefined ? (
                     <>carregando...</>
                 ) : (
-                    arrTarefasHoje.map(( e, idx )=><TarefaHoje setArrTarefasHoje={setArrTarefasHoje} key={e.id} e={e} idx = {idx}/>)
+                    arrTarefasHoje.map((e, idx) => (
+                        <TarefaHoje
+                            setDesligado={setDesligado} desligado={desligado}
+                            setArrTarefasHoje={setArrTarefasHoje}
+                            key={e.id} e={e} idx={idx}
+                        />
+                    ))
                 )}
 
             </div>

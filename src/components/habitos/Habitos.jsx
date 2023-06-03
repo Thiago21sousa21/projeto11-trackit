@@ -17,7 +17,7 @@ export default function Habitos() {
     useEffect(()=>{
         axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config)
             .then((ans)=>{
-                console.log(ans.data);
+                //console.log(ans.data);
                 setArrayHabitos(ans.data);
             })
             .catch( (err)=>{

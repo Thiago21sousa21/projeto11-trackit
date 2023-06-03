@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function Cadastro() {
+    const [disabled, setDisabled] = useState(false);
     const [cadastro, setCadastro] = useState({
         email: "",
         name: "",
@@ -14,30 +15,34 @@ export default function Cadastro() {
     //useEffect(()=>{},[]);
     function enviarCadastro(e) {
         e.preventDefault();
+        setDisabled(true);
         const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
         //const newCadastro = {...cadastro};
         console.log(cadastro);
         axios.post(URL, cadastro)
-            .then((ans)=>{
+            .then((ans) => {
                 console.log(ans);
+                setDisabled(false);
                 alert('agora é so fazer login!');
-            })
-            .catch((err)=> alert(err.response.data.message));
-        setCadastro({
-            email: "",
-            name: "",
-            image: "",
-            password: ""
-        });
-    }
 
-    
+            })
+            .catch((err) => alert(err.response.data.message));
+            setDisabled(false);
+                setCadastro({
+                    email: "",
+                    name: "",
+                    image: "",
+                    password: ""
+                });
+            }
+
+
     return (
         <CsCadastro>
             <img src={logo} />
-            <form onSubmit={enviarCadastro}>
+            <form onSubmit={disabled ? null : enviarCadastro}>
                 <input placeholder="email" onChange={(e) => setCadastro({ ...cadastro, email: e.target.value })} value={cadastro.email} type="email" name="" id="" />
-                <input placeholder="senha"  onChange={(e) => setCadastro({ ...cadastro, password: e.target.value })} value={cadastro.password} type="password" name="" id="" />
+                <input placeholder="senha" onChange={(e) => setCadastro({ ...cadastro, password: e.target.value })} value={cadastro.password} type="password" name="" id="" />
                 <input placeholder="nome" onChange={(e) => setCadastro({ ...cadastro, name: e.target.value })} value={cadastro.name} type="text" name="" id="" />
                 <input placeholder="imagem" onChange={(e) => setCadastro({ ...cadastro, image: e.target.value })} value={cadastro.image} type="url" name="" id="" />
                 <button>Cadastrar</button>

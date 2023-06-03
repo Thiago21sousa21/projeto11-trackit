@@ -21,7 +21,7 @@ export default function HeaderFooter (){
             <Link to='/hoje' className="none ">
                 <Ball></Ball>
             </Link>
-            <Link to='/hoje' className="none ">
+            <Link to='/historico' className="none ">
                 <p>Histórico</p>
             </Link>
 

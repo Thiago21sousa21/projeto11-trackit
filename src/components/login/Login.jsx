@@ -4,43 +4,68 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useContext, useState } from "react";
 import Contexto from "../../Contexto/Contexto";
+import { ThreeDots } from "react-loader-spinner";
 
-export default function Login (){
+export default function Login() {
     const navigate = useNavigate();
+    const [disabled, setDisabled] = useState(false);
 
-    const {setToken, token, setPhoto} = useContext(Contexto);
+    const { setToken, token, setPhoto } = useContext(Contexto);
     const [credencial, setCredencial] = useState({
         email: "",
         password: ""
     });
 
-    function fazerLogin(e){
+    function fazerLogin(e) {
         e.preventDefault();
-        console.log(credencial);
+        setDisabled(true);
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', credencial)
-            .then((ans)=>{
-                console.log(ans.data);
+            .then((ans) => {
+                //console.log(ans.data);
                 setToken(ans.data.token);
-                setPhoto(ans.data.image)
+                setPhoto(ans.data.image);
                 navigate('/hoje');
+                setDisabled(false);
+
             })
-            .catch((err)=>{
+            .catch((err) => {
                 console.log(err);
                 alert(err.response.data.message);
+                setDisabled(false);
+
             });
     }
 
-    return(
+    return (
         <CsLogin>
             <Link to='/hoje'>
-                <img src={logo}/>
+                <img src={logo} />
             </Link>
+
             <form onSubmit={fazerLogin}>
-                <input onChange={(e)=>setCredencial({...credencial, email: e.target.value})} value={credencial.email} placeholder="email" type="email" name="" id="" />
-                <input onChange={(e)=>setCredencial({...credencial, password: e.target.value})} value={credencial.password} placeholder="senha" type="password" name="" id="" />
-                <button>Entrar</button>
+                <input onChange={(e) => setCredencial({ ...credencial, email: e.target.value })} value={credencial.email} placeholder="email" type="email" name="" id="" />
+                <input onChange={(e) => setCredencial({ ...credencial, password: e.target.value })} value={credencial.password} placeholder="senha" type="password" name="" id="" />
+                <button disabled={disabled}>
+                    {
+                        !disabled ?
+                            'Entrar'
+                            : (
+                                <ThreeDots
+                                    height="13"
+                                    width="51"
+                                    radius="9"
+                                    color="#ffffff"
+                                    ariaLabel="three-dots-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClassName=""
+                                    visible={true}
+                                />
+                            )
+
+                    }
+                </button>
             </form>
-            <Link to='/cadastro'className="none" >
+            <Link to='/cadastro' className="none" >
                 <p>Não tem uma conta? Cadastre-se!</p>
             </Link>
 
@@ -85,7 +110,10 @@ const CsLogin = styled.div`
             font-weight: 400;
             font-size: 21px;
             line-height: 26px;
-            color: #FFFFFF;            
+            color: #FFFFFF; 
+            display: flex;
+            justify-content: center;
+            align-items: center;           
         }
     }
     .none{

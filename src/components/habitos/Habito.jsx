@@ -20,7 +20,7 @@ export default function Habito(props){
     function deletar(){
         axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)
             .then(()=>{
-                alert('deletado');
+                //alert('deletado');
 
                 axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config)
                 .then((ans)=>{
