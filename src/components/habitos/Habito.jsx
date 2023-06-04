@@ -5,48 +5,55 @@ import axios from "axios";
 import { useContext } from "react";
 import Contexto from "../../Contexto/Contexto";
 
-export default function Habito(props){
-    const {token} = useContext(Contexto);
+export default function Habito(props) {
+    const { token } = useContext(Contexto);
     const { e, setArrayHabitos } = props;
-    const {days, id , name } = e;
-    const dias = ['D','S','T', 'Q', 'Q', 'S', 'S'];
+    const { days, id, name } = e;
+    const dias = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
     const config = {
-        headers:{
+        headers: {
             Authorization: `Bearer ${token}`
         }
     }
 
-    function deletar(){
-        axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)
-            .then(()=>{
-                //alert('deletado');
+    function deletar() {
 
-                axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config)
-                .then((ans)=>{
-                    console.log(ans.data);
-                    setArrayHabitos(ans.data);
+        const confirme = confirm('certeza?');
+        if (confirme) {
+            axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)
+                .then(() => {
+                    //alert('deletado');
+
+                    axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config)
+                        .then((ans) => {
+                            console.log(ans.data);
+                            setArrayHabitos(ans.data);
+                        })
+                        .catch((err) => {
+                            alert(err.response.data.message);
+                            console.log('ERRO!', err);
+                        })
                 })
-                .catch( (err)=>{
-                    alert(err.response.data.message);
-                    console.log('ERRO!', err);
-                })
-            })
-            .catch((err)=>{
-                console.log(err);
-                alert('deu ruim')});
+                .catch((err) => {
+                    console.log(err);
+                    alert('deu ruim')
+                });
+        }
+
+
     }
 
 
-    return(
-        <CsHabito>
+    return (
+        <CsHabito atributo data-test="habit-container">
             <div className="tituloHabito">
-                <p>{name}</p>
-                <img onClick={deletar} src={excluir} alt="" />
+                <p data-test="habit-name" >{name}</p>
+                <img data-test="habit-delete-btn" onClick={deletar} src={excluir} alt="" />
             </div>
             <div className="botoesSemana">
-                        {dias.map((element, index)=> <BotaoHabitoRenderizado key={index} days= {days} index={index} element={element}/>)}
-                    </div>
+                {dias.map((element, index) => <BotaoHabitoRenderizado key={index} days={days} index={index} element={element} />)}
+            </div>
         </CsHabito>
     );
 }
@@ -54,7 +61,7 @@ export default function Habito(props){
 const CsHabito = styled.div`
     //border: 1px solid;
     width: 100%;
-    height: 90px;
+    //height: 90px;
     padding: 15px;
     margin: 10px 0px;
     background-color: #ffffff;
@@ -64,12 +71,14 @@ const CsHabito = styled.div`
         display: flex;
         justify-content: space-between;
         margin-bottom: 10px;
+
+        img{
+            cursor: pointer;
+        }
     }
 
     .botoesSemana{
             // border: 1px solid;
-
             width: 90%;
-
         }
 `;

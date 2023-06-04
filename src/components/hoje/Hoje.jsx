@@ -51,16 +51,16 @@ export default function Hoje() {
         <CsHoje>
             <div className="molde">
                 <div className="tituloHoje">
-                    <h1>{diaDaSemana}, {dataFormatada}</h1>
+                    <h1 data-test="today" >{diaDaSemana}, {dataFormatada}</h1>
                     {
                         quantidadeTotal === 0 ? (
-                            <h2>Você não tem atividades para hoje!</h2>
+                            <h2 data-test="today-counter">Você não tem atividades para hoje!</h2>
 
                         ) : quantidadeSelect === 0 ? (
-                            <h2>Nenhum hábito concluído ainda</h2>
+                            <h2 data-test="today-counter">Nenhum hábito concluído ainda</h2>
 
                         ) : (
-                            <h2 className='verde'>{((quantidadeSelect / quantidadeTotal) * 100).toFixed(0)}% dos hábitos concluídos</h2>
+                            <h2 data-test="today-counter" className='verde'>{((quantidadeSelect / quantidadeTotal) * 100).toFixed(0)}% dos hábitos concluídos</h2>
                         )
                     }
                 </div>
@@ -109,6 +109,7 @@ const CsHoje = styled.div`
         margin-bottom: 28px;
 
         position: fixed;
+        z-index:10;
         top: 70px;
         left: 50%;
         transform: translate(-50%);

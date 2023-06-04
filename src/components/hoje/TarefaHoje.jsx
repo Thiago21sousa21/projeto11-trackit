@@ -4,7 +4,6 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import Contexto from "./../../Contexto/Contexto";
 
-//#E7E7E7  8FC549
 export default function TarefaHoje(props) {
     const { e, idx, setArrTarefasHoje, setDesligado, desligado } = props;
     const { setQuantidadeTotal, setQuantidadeSelect }= props;
@@ -87,13 +86,13 @@ export default function TarefaHoje(props) {
     }
 
     return (
-        <CsTarefaHoje done={done} >
+        <CsTarefaHoje data-test="today-habit-container" done={done} >
             <div className="descricao">
-                <h1>{name}</h1>
-                <h2>Sequência atual: {currentSequence} dias</h2>
-                <h2>Seu recorde: {highestSequence} dias</h2>
+                <h1 data-test="today-habit-name">{name}</h1>
+                <h2 data-test="today-habit-sequence">Sequência atual: {currentSequence} dias</h2>
+                <h2 data-test="today-habit-record">Seu recorde: {highestSequence} dias</h2>
             </div>
-            <div onClick={desligado ? null : toggleTarefa } className="moldeIcon">
+            <div data-test="today-habit-check-btn" onClick={desligado ? null : toggleTarefa } className="moldeIcon">
                 <ion-icon name="checkmark-sharp"></ion-icon>
             </div>
             {/* <img src={check} alt="" /> */}
@@ -101,7 +100,7 @@ export default function TarefaHoje(props) {
 }
 
 const CsTarefaHoje = styled.div`
-    height: 95px;
+    //height: 95px;
     width: 100%;
     background-color: #FFFFFF;
     border-radius: 5px;
@@ -126,6 +125,8 @@ const CsTarefaHoje = styled.div`
         background-color: ${props => props.done ? '#8FC549' : '#E7E7E7'};
         border-radius: 5px;
         //border: 1px solid;
+        cursor: pointer;    
+
     }
     ion-icon{
         color: white;

@@ -15,6 +15,9 @@ export default function ContCriar(props) {
 
     function enviarNovoHabito(e){
         e.preventDefault();
+
+        if(diasHabito.length === 0)return alert('marque os dias!');
+
         const body = { name: nomeHabito, days: diasHabito}
         const config= {
             headers:{
@@ -49,9 +52,9 @@ export default function ContCriar(props) {
     }
 
     return (
-        <CsContCriar display={display}>
+        <CsContCriar data-test="habit-create-container" display={display}>
             <form onSubmit={enviarNovoHabito}>
-                <input onChange={(e)=>{setNomeHabito(e.target.value)}} value={nomeHabito} placeholder="Nome do hábito" type="text" name="" id="" />
+                <input data-test="habit-name-input" onChange={(e)=>{setNomeHabito(e.target.value)}} value={nomeHabito} placeholder="Nome do hábito" type="text" name="" id="" />
                 <div className="botoesSemana">
                     
                     {dias.map((dia, i) => (<BotaoHabitos
@@ -63,8 +66,8 @@ export default function ContCriar(props) {
 
                 </div> 
                 <div className="addCancel">
-                    <button className="cancelar" type="button" onClick={() => setDisplay('none')}>Cancelar</button>
-                    <button className="salvar" type="submit" >Salvar</button>
+                    <button data-test="habit-create-cancel-btn" className="cancelar" type="button" onClick={() => setDisplay('none')}>Cancelar</button>
+                    <button data-test="habit-create-save-btn" className="salvar" type="submit" >Salvar</button>
 
                 </div>
             </form>
@@ -73,7 +76,7 @@ export default function ContCriar(props) {
 }
 const CsContCriar = styled.div`
 
-    width: 100%;
+    width: 90%;
     height: 180px;
     //border: 1px solid;
     background-color: #ffffff;
@@ -82,6 +85,11 @@ const CsContCriar = styled.div`
     display: ${props => props.display};
     flex-direction: column;
     align-items: center;
+
+    position: fixed;
+    top: 145px;
+    left: 50%;
+    transform: translate(-50%);
 
     form{
         width:100%;
@@ -123,6 +131,8 @@ const CsContCriar = styled.div`
             color: #52B6FF;
             border: none;
             background-color: #ffffff;
+            cursor: pointer;    
+
         }
         .salvar{
             background: #52B6FF;
@@ -133,6 +143,8 @@ const CsContCriar = styled.div`
             line-height: 20px;
             color: #FFFFFF;
             border: none;
+            cursor: pointer;    
+
         }
     }
 

@@ -33,7 +33,7 @@ export default function Habitos() {
             <CsHabitos display={display}>
                 <div className="containerTituloMeusHabitos">
                     <p>Meus hábitos</p>
-                    <button onClick={() => setDisplay('flex')}>+</button>
+                    <button data-test="habit-create-btn" onClick={() => setDisplay('flex')}>+</button>
                 </div>
 
                 <ContCriar 
@@ -110,6 +110,8 @@ const CsHabitos = styled.div`
             font-size: 27px;
             line-height: 34px;
             color: #FFFFFF;
+            cursor: pointer;    
+
         }
     }
 

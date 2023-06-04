@@ -38,14 +38,11 @@ export default function Login() {
 
     return (
         <CsLogin>
-            <Link to='/hoje'>
-                <img src={logo} />
-            </Link>
-
+            <img src={logo} />
             <form onSubmit={fazerLogin}>
-                <input onChange={(e) => setCredencial({ ...credencial, email: e.target.value })} value={credencial.email} placeholder="email" type="email" name="email" id="email" />
-                <input onChange={(e) => setCredencial({ ...credencial, password: e.target.value })} value={credencial.password} placeholder="senha" type="password" name="name" id="name" />
-                <button disabled={disabled}>
+                <input data-test="email-input" onChange={(e) => setCredencial({ ...credencial, email: e.target.value })} value={credencial.email} placeholder="email" type="email" name="email" id="email" />
+                <input data-test="password-input" onChange={(e) => setCredencial({ ...credencial, password: e.target.value })} value={credencial.password} placeholder="senha" type="password" name="name" id="name" />
+                <button data-test="login-btn" disabled={disabled}>
                     {
                         !disabled ?
                             'Entrar'
@@ -65,7 +62,7 @@ export default function Login() {
                     }
                 </button>
             </form>
-            <Link to='/cadastro' className="none" >
+            <Link to='/cadastro' data-test="signup-link" className="none" >
                 <p>Não tem uma conta? Cadastre-se!</p>
             </Link>
 

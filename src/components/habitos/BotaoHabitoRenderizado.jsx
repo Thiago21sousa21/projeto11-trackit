@@ -9,7 +9,7 @@ export default function BotaoHabitoRenderizado(props) {
 
 
     return (
-        <CsButton  days={days} index={index} >{element}</CsButton>
+        <CsButton data-test="habit-day" days={days} index={index} >{element}</CsButton>
     );
 }
 

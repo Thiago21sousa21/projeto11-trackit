@@ -41,13 +41,13 @@ export default function Cadastro() {
         <CsCadastro>
             <img src={logo} />
             <form onSubmit={disabled ? null : enviarCadastro}>
-                <input placeholder="email" onChange={(e) => setCadastro({ ...cadastro, email: e.target.value })} value={cadastro.email} type="email" name="email" id="email" />
-                <input placeholder="senha" onChange={(e) => setCadastro({ ...cadastro, password: e.target.value })} value={cadastro.password} type="password" name="senha" id="senha" />
-                <input placeholder="nome" onChange={(e) => setCadastro({ ...cadastro, name: e.target.value })} value={cadastro.name} type="text" name="nome" id="nome" />
-                <input placeholder="imagem" onChange={(e) => setCadastro({ ...cadastro, image: e.target.value })} value={cadastro.image} type="url" name="foto" id="foto" />
-                <button>Cadastrar</button>
+                <input data-test="email-input" placeholder="email" onChange={(e) => setCadastro({ ...cadastro, email: e.target.value })} value={cadastro.email} type="email" name="email" id="email" />
+                <input data-test="password-input" placeholder="senha" onChange={(e) => setCadastro({ ...cadastro, password: e.target.value })} value={cadastro.password} type="password" name="senha" id="senha" />
+                <input data-test="user-name-input" placeholder="nome" onChange={(e) => setCadastro({ ...cadastro, name: e.target.value })} value={cadastro.name} type="text" name="nome" id="nome" />
+                <input data-test="user-image-input" placeholder="imagem" onChange={(e) => setCadastro({ ...cadastro, image: e.target.value })} value={cadastro.image} type="url" name="foto" id="foto" />
+                <button data-test="signup-btn">Cadastrar</button>
             </form>
-            <Link to='/'>
+            <Link to='/' data-test="login-link">
                 <p>Votar para fazer login</p>
             </Link>
 

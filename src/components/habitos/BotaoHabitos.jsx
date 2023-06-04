@@ -9,6 +9,7 @@ export default function BotaoHabitos(props) {
 
     return (
         <CsBotaoHabitos
+            data-test="habit-day"
             cor={cor} colorText={colorText}
             type="button"
             onClick={cor==='#FFFFFF'?
@@ -40,6 +41,7 @@ const CsBotaoHabitos = styled.button`
     width: 30px;
     height: 30px;
     margin-right: 4px;
-    color: ${props => props.colorText}      
+    color: ${props => props.colorText} ;
+    cursor: pointer;    
 
 `;

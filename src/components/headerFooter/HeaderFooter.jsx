@@ -5,44 +5,44 @@ import { useContext } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 
-export default function HeaderFooter (){
-    const {photo, porcentagem} = useContext(Contexto);
+export default function HeaderFooter() {
+    const { photo, porcentagem } = useContext(Contexto);
     //console.log(porcentagem);
-    return(
-    <>
-        <Link to='/'>
-            <Header>
-                <h1>TrackIt</h1>
-                <img src={photo} alt="" />
+    return (
+        <>
+            <Header data-test="header">
+                <Link to='/'>
+                    <h1>TrackIt</h1>
+                </Link>
+                <img src={photo} alt="" data-test="avatar"/>
             </Header>
-        </Link>
-        <Footer>
-            
-            <Link to='/habitos' className="none ">
-                <p>Hábitos</p>
-            </Link>
-            <Link to='/hoje' className="none ">
-                <Ball>
-                    <CircularProgressbar 
-                        value={porcentagem}
-                        maxValue={1}
-                        text="hoje"
-                        //#52B6FF
-                        styles={buildStyles({
-                            textColor: '#ffffff',
-                            pathColor: '#ffffff',
-                            trailColor: '#52B6FF',
-                            textSize: '18px'
-                        })}
-                    />
-                </Ball>
-            </Link>
-            <Link to='/historico' className="none ">
-                <p>Histórico</p>
-            </Link>
+            <Footer data-test="menu">
 
-        </Footer>
-    </>);
+                <Link to='/habitos' data-test="habit-link" className="none ">
+                    <p>Hábitos</p>
+                </Link>
+                <Link to='/hoje' data-test="today-link" className="none ">
+                    <Ball>
+                        <CircularProgressbar
+                            value={porcentagem}
+                            maxValue={1}
+                            text="Hoje"
+                            //#52B6FF
+                            styles={buildStyles({
+                                textColor: '#ffffff',
+                                pathColor: '#ffffff',
+                                trailColor: '#52B6FF',
+                                textSize: '18px'
+                            })}
+                        />
+                    </Ball>
+                </Link>
+                <Link to='/historico' data-test="history-link" className="none ">
+                    <p>Histórico</p>
+                </Link>
+
+            </Footer>
+        </>);
 }
 
 const Header = styled.div`
