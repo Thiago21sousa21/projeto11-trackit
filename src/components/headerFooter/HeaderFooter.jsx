@@ -11,7 +11,7 @@ export default function HeaderFooter() {
     return (
         <>
             <Header data-test="header">
-                <Link to='/'>
+                <Link to='/' className="n">
                     <h1>TrackIt</h1>
                 </Link>
                 <img src={photo} alt="" data-test="avatar"/>
@@ -60,6 +60,11 @@ const Header = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 0px 5%;
+
+    .n{
+        text-decoration: none;
+        color: #FFFFFF;
+    }
 
     img{
         border-radius : 50%;

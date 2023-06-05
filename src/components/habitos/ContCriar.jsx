@@ -11,7 +11,9 @@ export default function ContCriar(props) {
     const {display, setDisplay, arrayHabitos, setArrayHabitos} = props;
     const dias = ['D','S','T', 'Q', 'Q', 'S', 'S'];
     const [nomeHabito, setNomeHabito]= useState('');
-    const navigate = useNavigate();
+    const [color, setColor] = useState(Array(7).fill('#ffffff'));
+    const [colorText, setColorText] = useState(Array(7).fill('#dbdbdb'));
+
 
     function enviarNovoHabito(e){
         e.preventDefault();
@@ -27,14 +29,16 @@ export default function ContCriar(props) {
 
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body, config)
             .then((ans)=>{
-                console.log(ans);
+                //console.log(ans);
                 setDiasHabito([]);
                 setNomeHabito('');
                 setDisplay('none');
+                setColor(Array(7).fill('#ffffff'));
+                setColorText(Array(7).fill('#dbdbdb'));
 
                 axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config)
                 .then((ans)=>{
-                    console.log(ans.data);
+                    //console.log(ans.data);
                     setArrayHabitos(ans.data);
                 })
                 .catch( (err)=>{
@@ -58,6 +62,9 @@ export default function ContCriar(props) {
                 <div className="botoesSemana">
                     
                     {dias.map((dia, i) => (<BotaoHabitos
+                                                color={color} setColor={setColor}
+                                                colorText={colorText} setColorText={setColorText}
+                                                resetDiasHabito={()=>setArrayHabitos([])}
                                                 i={i}
                                                 dia={dia}
                                                 key={i}
