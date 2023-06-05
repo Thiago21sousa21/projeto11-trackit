@@ -6,82 +6,108 @@ import Contexto from "./../../Contexto/Contexto";
 
 export default function TarefaHoje(props) {
     const { e, idx, setArrTarefasHoje, setDesligado, desligado } = props;
-    const { setQuantidadeTotal, setQuantidadeSelect }= props;
+    const { setQuantidadeTotal, setQuantidadeSelect } = props;
     const { name, currentSequence, highestSequence, id, done } = e;
-    const {token, setPorcentagem} = useContext(Contexto);
+    const { token, setPorcentagem } = useContext(Contexto);
 
     const config = {
-        headers:{
+        headers: {
             Authorization: `Bearer ${token}`
         }
     }
     const body = {};
 
-    function toggleTarefa(){
+    function toggleTarefa() {
         setDesligado(true);
-        if(done){
-            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`,body, config)
-                .then((ans)=>{
+        if (done) {
+            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, body, config)
+                .then((ans) => {
                     //alert( 'desmarcou');
                     axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
-                    .then((ans)=>{
-                        setDesligado(false);
-                        setArrTarefasHoje(ans.data);
-                        setQuantidadeTotal(ans.data.length);
-                        //console.log(quantidadeTotal, 'total');
-                        const newSelect = ans.data.filter( e => e.done);
-                        setQuantidadeSelect(newSelect.length);
-                        //console.log(quantidadeSelect, 'select');
-                        ans.data.length !== 0 && setPorcentagem(newSelect.length/ans.data.length);
+                        .then((ans) => {
+                            setDesligado(false);
+                            setArrTarefasHoje(ans.data);
+                            setQuantidadeTotal(ans.data.length);
+                            //console.log(quantidadeTotal, 'total');
+                            const newSelect = ans.data.filter(e => e.done);
+                            setQuantidadeSelect(newSelect.length);
+                            //console.log(quantidadeSelect, 'select');
+                            ans.data.length !== 0 && setPorcentagem(newSelect.length / ans.data.length);
 
-                    })
-                    .catch((err)=>{
-                        console.log(  'deu ruim');
-                        console.log(err);
+                        })
+                        .catch((err) => {
+                            console.log('deu ruim');
+                            console.log(err);
 
-                        //setDesligado(false);
-                    });
+                            //setDesligado(false);
+                        });
 
                 })
-                .catch((err)=>{
+                .catch((err) => {
                     console.log(err);
-                    alert('deu zebra')});
+                    alert('deu zebra')
+                });
 
 
 
-            
-        } else{
-            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,body, config)
-                .then((ans)=>{
+
+        } else {
+            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, body, config)
+                .then((ans) => {
                     //alert( 'marcou');
                     axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
-                    .then((ans)=>{
-                        setDesligado(false);
-                        setArrTarefasHoje(ans.data);
-                        setQuantidadeTotal(ans.data.length);
-                        //console.log(quantidadeTotal, 'total');
-                        const newSelect = ans.data.filter( e => e.done);
-                        setQuantidadeSelect(newSelect.length);
-                        //console.log(quantidadeSelect, 'select'); 
-                        ans.data.length !== 0 && setPorcentagem(newSelect.length/ans.data.length);
+                        .then((ans) => {
+                            setDesligado(false);
+                            setArrTarefasHoje(ans.data);
+                            setQuantidadeTotal(ans.data.length);
+                            //console.log(quantidadeTotal, 'total');
+                            const newSelect = ans.data.filter(e => e.done);
+                            setQuantidadeSelect(newSelect.length);
+                            //console.log(quantidadeSelect, 'select'); 
+                            ans.data.length !== 0 && setPorcentagem(newSelect.length / ans.data.length);
 
-       
 
-                    })
-                    .catch((err)=>{
-                        console.log(  'deu ruim');
-                        alert(err.response.data.message);
-                        //setDesligado(false);
-                    });
+
+                        })
+                        .catch((err) => {
+                            console.log('deu ruim');
+                            alert(err.response.data.message);
+                            //setDesligado(false);
+                        });
 
                 })
-                .catch((err)=>{
+                .catch((err) => {
                     console.log(err);
-                    alert('deu zebra')});
+                    alert('deu zebra')
+                });
 
 
-    
 
+
+        }
+    }
+
+    function retornaSequencia() {
+        if (done) {
+            return (
+                <h2 data-test="today-habit-sequence">Sequência atual: <span className="verde"> {currentSequence}dias</span> </h2>
+            );
+        } else{
+            return (
+                <h2 data-test="today-habit-sequence">Sequência atual: {currentSequence}dias </h2>
+            );
+        }
+    }
+
+    function retornaRecorde(){
+        if(currentSequence === highestSequence && currentSequence > 0 ){
+            return(
+                <h2 data-test="today-habit-record">Seu recorde: <span className="verde">{highestSequence} dias</span></h2>
+            );
+        } else{
+            return(
+                <h2 data-test="today-habit-record">Seu recorde: {highestSequence} dias</h2>
+            );
         }
     }
 
@@ -89,10 +115,10 @@ export default function TarefaHoje(props) {
         <CsTarefaHoje data-test="today-habit-container" done={done} >
             <div className="descricao">
                 <h1 data-test="today-habit-name">{name}</h1>
-                <h2 data-test="today-habit-sequence">Sequência atual: {currentSequence} dias</h2>
-                <h2 data-test="today-habit-record">Seu recorde: {highestSequence} dias</h2>
+                {retornaSequencia()}
+                {retornaRecorde()}
             </div>
-            <div data-test="today-habit-check-btn" onClick={desligado ? null : toggleTarefa } className="moldeIcon">
+            <div data-test="today-habit-check-btn" onClick={desligado ? null : toggleTarefa} className="moldeIcon">
                 <ion-icon name="checkmark-sharp"></ion-icon>
             </div>
             {/* <img src={check} alt="" /> */}
@@ -140,5 +166,7 @@ const CsTarefaHoje = styled.div`
         font-size: 20px;
         margin-bottom: 7px;
     }
-
+    .verde{
+        color: #8FC549;
+    }
 `;
